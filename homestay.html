@@ -1,1 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homestay Details</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <div id="homestay-container">
+    <h1 id="homestay-name"></h1>
+    <a id="map-button" target="_blank">Open in Google Maps</a>
+
+    <div class="slideshow">
+      <img id="slide" src="" alt="Homestay Photo">
+      <div class="controls">
+        <button onclick="prevSlide()">‹</button>
+        <button onclick="nextSlide()">›</button>
+      </div>
+    </div>
+
+    <a id="whatsapp-button" target="_blank">Chat on WhatsApp</a>
+  </div>
+
+  <script src="scripts/slideshow.js"></script>
+</body>
+</html>
+
+/* main.css */
+body {
+  font-family: sans-serif;
+  padding: 20px;
+  text-align: center;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+.gallery a {
+  display: block;
+  width: 200px;
+  text-decoration: none;
+  color: black;
+}
+
+.gallery img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.slideshow {
+  margin-top: 20px;
+  position: relative;
+}
+
+#slide {
+  width: 80%;
+  max-width: 600px;
+  border-radius: 10px;
+}
+
+.controls {
+  margin-top: 10px;
+}
+
+.controls button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  font-size: 18px;
+}
+
+#map-button, #whatsapp-button {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: green;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+// slideshow.js
+const homestayData = {
+  1: {
+    name: "Homestay 1",
+    map: "https://maps.google.com/?q=place1",
+    whatsapp: "https://wa.me/60123456789",
+    photos: [
+      "https://i.imgur.com/abc1.jpg",
+      "https://i.imgur.com/abc2.jpg",
+      "https://i.imgur.com/abc3.jpg",
+      "https://i.imgur.com/abc4.jpg",
+      "https://i.imgur.com/abc5.jpg",
+      "https://i.imgur.com/abc6.jpg",
+      "https://i.imgur.com/abc7.jpg",
+      "https://i.imgur.com/abc8.jpg",
+      "https://i.imgur.com/abc9.jpg",
+      "https://i.imgur.com/abc10.jpg"
+    ]
+  },
+  2: {
+    name: "Homestay 2",
+    map: "https://maps.google.com/?q=place2",
+    whatsapp: "https://wa.me/60123456789",
+    photos: [
+      "https://i.imgur.com/xyz1.jpg",
+      "https://i.imgur.com/xyz2.jpg",
+      "https://i.imgur.com/xyz3.jpg",
+      "https://i.imgur.com/xyz4.jpg",
+      "https://i.imgur.com/xyz5.jpg",
+      "https://i.imgur.com/xyz6.jpg",
+      "https://i.imgur.com/xyz7.jpg",
+      "https://i.imgur.com/xyz8.jpg",
+      "https://i.imgur.com/xyz9.jpg",
+      "https://i.imgur.com/xyz10.jpg"
+    ]
+  },
+  // Add entries for homestay 3 - 6 with actual Imgur links
+};
+
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get("id");
+const homestay = homestayData[id];
+let current = 0;
+
+if (homestay) {
+  document.getElementById("homestay-name").innerText = homestay.name;
+  document.getElementById("map-button").href = homestay.map;
+  document.getElementById("whatsapp-button").href = homestay.whatsapp;
+  document.getElementById("slide").src = homestay.photos[current];
+}
+
+function nextSlide() {
+  current = (current + 1) % homestay.photos.length;
+  document.getElementById("slide").src = homestay.photos[current];
+}
+
+function prevSlide() {
+  current = (current - 1 + homestay.photos.length) % homestay.photos.length;
+  document.getElementById("slide").src = homestay.photos[current];
+}
 
